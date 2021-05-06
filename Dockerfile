@@ -4,13 +4,8 @@ USER root
 
 # Write RUN-statements here, that will install the required software within the Jenkins container
 # Install dotnet 5
-RUN apt-get install -y gpg
-RUN wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o microsoft.asc.gpg
-RUN mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
-RUN wget https://packages.microsoft.com/config/ubuntu/20.04/prod.list
-RUN mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
-RUN chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg
-RUN chown root:root /etc/apt/sources.list.d/microsoft-prod.list
+RUN wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb
 RUN apt-get update
 RUN apt-get install -y apt-transport-https
 RUN apt-get update
