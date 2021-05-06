@@ -46,5 +46,9 @@ RUN apt-get update && apt-get install -y docker-ce-cli
 RUN groupadd docker
 RUN usermod -aG docker jenkins
 
+# Install Docker Compose
+RUN curl -L https://github.com/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
 # The file must end with this statement to make sure that Jenkins runs with the right user permission.
 USER jenkins
