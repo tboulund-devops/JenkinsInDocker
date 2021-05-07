@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
     jenkins:
-        build: .
+        image: boulundeasv/jenkins
         container_name: jenkins
         restart: always
         ports:
