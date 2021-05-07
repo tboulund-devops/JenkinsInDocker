@@ -3,10 +3,12 @@ apt-get update
 apt-get install -y default-jdk
 
 # Install Jenkins
-wget –q –O – https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add –
-sh –c ‘echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list’
-apt-get update
-apt-get install -y jenkins
+wget https://pkg.jenkins.io/debian-stable/jenkins.io.key
+apt-get install -y gnupg2
+apt-key add jenkins.io.key
+echo "deb https://pkg.jenkins.io/debian-stable binary/" | tee /etc/apt/sources.list.d/jenkins.list
+apt update
+apt install -y jenkins
 systemctl start jenkins
 systemctl enable jenkins
 
@@ -19,11 +21,12 @@ apt-get update
 apt-get install -y dotnet-sdk-5.0
 
 # Install Node
+apt install -y curl
 curl -fsSL https://deb.nodesource.com/setup_15.x | bash -
 apt-get install -y nodejs
 
 # Install Angular
-RUN npm install -g @angular/cli
+npm install -g @angular/cli
 
 # Install sqlpackage
 apt-get install libunwind8
@@ -51,3 +54,8 @@ usermod -aG docker jenkins
 # Install Docker Compose
 curl -L https://github.com/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
+
+# Show Jenkins init password
+echo ""
+echo "JENKINS INIT PASSWORD"
+cat /var/lib/jenkins/secrets/initialAdminPassword
