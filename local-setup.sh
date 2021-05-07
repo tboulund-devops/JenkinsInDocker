@@ -36,7 +36,8 @@ chmod a+x /opt/sqlpackage/sqlpackage
 export PATH=$PATH:/opt/sqlpackage
 
 # Install SSDT
-cp ssdt /opt/ssdt
+mkdir /opt/ssdt
+cp -r ssdt/* /opt/ssdt
 
 # Install Docker
 apt-get update && apt-get install -y apt-transport-https \
